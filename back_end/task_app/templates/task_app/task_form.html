@@ -1,0 +1,64 @@
+{% extends "task_app/base.html" %}
+
+{% block content %}
+<h1>Create/Edit Task</h1>
+<form id="taskForm">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="priority" class="form-label">Priority</label>
+        <select class="form-select" id="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" required>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="deadline" class="form-label">Deadline</label>
+        <input type="date" class="form-control" id="deadline" required>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+<script>
+    document.getElementById('taskForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const data = {
+            title: document.getElementById('title').value,
+            description: document.getElementById('description').value,
+            priority: document.getElementById('priority').value,
+            status: document.getElementById('status').value,
+            deadline: document.getElementById('deadline').value
+        };
+        fetch('/api/tasks/create/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            alert('Task created successfully');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+
+    
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "task_app/base.html" %}
+
+{% block content %}
+<h1>Edit Task</h1>
+
+<!-- Edit Task Form -->
+<form id="editTaskForm">
+    {% csrf_token %}
+    <input type="hidden" id="taskId" value="{{ task.id }}"> <!-- Hidden field to store task ID -->
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" value="{{ task.title }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" required>{{ task.description }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="priority">Priority</label>
+        <select class="form-control" id="priority" required>
+            <option value="Low" {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select class="form-control" id="status" required>
+            <option value="Pending" {% if task.status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="In Progress" {% if task.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+            <option value="Completed" {% if task.status == 'Completed' %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="deadline">Deadline</label>
+        <input type="date" class="form-control" id="deadline" value="{{ task.deadline }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Task</button>
+</form>
+
+<script src="{% static 'js/task_edit.js' %}"></script>  <!-- Include the separate JS file -->
+
+{% endblock %}
