@@ -1,7 +1,3 @@
-Here is a sample README for your task management system project:
-
----
-
 # Task Management System
 
 This is a task management system that allows users to efficiently manage their tasks. The system consists of a frontend built with React and a backend built with Django. It allows users to create, update, delete, and view tasks, and provides an easy-to-use interface for managing personal tasks.
